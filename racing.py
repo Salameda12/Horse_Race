@@ -36,6 +36,12 @@ class HorseApp:
     def start_race(self):
         self.start_race_button.config(state=tk.DISABLED)
         self.restart_btn.config(state=tk.DISABLED)
+        self.horse_shapes = []
+        self.horse_texts = []
+        self.positions = [0] * self.num_horses
+
+        self.special_horse = random.choice(self.horses)  # 매 판마다 이기기 쉬운 말을 랜덤으로 선택
+        print(self.special_horse)
         for i, horse in enumerate(self.horses):
             shape = self.canvas.create_rectangle(50, i*100+50, 50, i*100+100, fill=self.colors[i])
             self.horse_shapes.append(shape)
@@ -52,7 +58,10 @@ class HorseApp:
         if not all(pos >= self.finish_line for pos in self.positions):
             for i in range(self.num_horses):
                 if self.positions[i] < self.finish_line:
-                    move_distance = random.randint(10, 40)  # 이동 거리를 10에서 40 사이의 랜덤값으로 설정
+                    if self.horses[i] == self.special_horse:
+                        move_distance = random.randint(15, 45)  # 선택된 말의 이동 거리를 20에서 50 사이의 랜덤값으로 설정
+                    else:
+                        move_distance = random.randint(10, 40)  # 다른 말들의 이동 거리를 10에서 40 사이의 랜덤값으로 설정
                     new_position = self.positions[i] + move_distance
                     if new_position > self.finish_line:  # 500m를 넘어가면 500m로 고정
                         new_position = self.finish_line
