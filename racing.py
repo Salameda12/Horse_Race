@@ -26,7 +26,12 @@ class HorseApp:
         self.restart_btn = tk.Button(root, text="다시하기", command=self.restart)
         self.restart_btn.pack()
 
+        self.draw_finish_line()
         self.start_race()
+
+    def draw_finish_line(self):
+        self.canvas.create_line(self.finish_line + 50, 0, self.finish_line + 50, 600, fill="black", dash=(4, 2))
+        self.canvas.create_text(self.finish_line + 50, 20, text="Finish Line", anchor="n")
 
     def start_race(self):
         self.start_race_button.config(state=tk.DISABLED)
@@ -69,6 +74,7 @@ class HorseApp:
         self.canvas.delete("all")
         self.horse_shapes.clear()
         self.horse_texts.clear()
+        self.draw_finish_line()
         self.num_horses = simpledialog.askinteger("Input", "몇 개의 경마를 입력하시겠습니까? (최대 5개): ")
         self.num_horses = min(self.num_horses, 5)
         self.horses = ["골드쉽", "키타산 블랙", "토카이 테이오", "맨하탄 카페", "하루 우라라"][:self.num_horses]
