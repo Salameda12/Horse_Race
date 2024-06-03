@@ -112,3 +112,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = HorseApp(root)
     root.mainloop()
+# 화면에서 1~5사이의 숫자를 누르면 해당 번호의 말이 이기기 쉬운 말로 변경
